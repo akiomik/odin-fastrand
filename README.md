@@ -2,6 +2,9 @@
 
 A port implementation of Rust's [fastrand](https://github.com/smol-rs/fastrand) crate ([wyrand](https://github.com/wangyi-fudan/wyhash)) for [Odin](https://odin-lang.org/).
 
+> [!IMPORTANT]
+> fastrand is **not cryptographically secure**. It should not be used for cryptographic purposes, security-sensitive applications, or generating secrets. For cryptographic use cases, please use Odin's `default_random_generator` (ChaCha8) instead.
+
 ## Performance
 
 Benchmark results for `rand.uint64()` generation on GitHub Actions:
