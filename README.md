@@ -22,3 +22,13 @@ main :: proc() {
   random_float := rand.float32()
 }
 ```
+
+## Development
+
+```bash
+# test
+odin test tests
+
+# bench
+odin test benchmark
+```
