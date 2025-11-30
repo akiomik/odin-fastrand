@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: laytan/setup-odin@v2
+        with:
+          release: nightly
+      - run: odin report
+      - run: odin test tests
+      - run: odin test benchmark
+      - run: odin check examples -vet --strict-style
