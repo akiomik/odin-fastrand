@@ -23,7 +23,7 @@ benchmark_fill_bytes :: proc(t: ^testing.T) {
 
   start := time.now()
 
-  for i in 0..<ITERS {
+  for _ in 0..<ITERS {
     fastrand.fill_bytes(&r, buf)
   }
 
@@ -44,7 +44,7 @@ benchmark_fastrand_uint64 :: proc(t: ^testing.T) {
 
   start := time.now()
 
-  for i in 0..<ITERS {
+  for _ in 0..<ITERS {
     _ = rand.uint64()
   }
 
@@ -65,7 +65,7 @@ benchmark_default_uint64 :: proc(t: ^testing.T) {
 
   start := time.now()
 
-  for i in 0..<ITERS {
+  for _ in 0..<ITERS {
     _ = rand.uint64()
   }
 
@@ -86,7 +86,7 @@ benchmark_pcg_uint64 :: proc(t: ^testing.T) {
 
   start := time.now()
 
-  for i in 0..<ITERS {
+  for _ in 0..<ITERS {
     _ = rand.uint64()
   }
 
@@ -107,7 +107,7 @@ benchmark_xoshiro256_uint64 :: proc(t: ^testing.T) {
 
   start := time.now()
 
-  for i in 0..<ITERS {
+  for _ in 0..<ITERS {
     _ = rand.uint64()
   }
 

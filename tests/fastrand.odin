@@ -2,7 +2,6 @@ package tests
 
 import "core:fmt"
 import "core:testing"
-import "core:math"
 import "core:math/rand"
 
 import fastrand ".."
@@ -59,7 +58,7 @@ test_gen_u64 :: proc(t: ^testing.T) {
   defer delete(seen)
 
   // Generate 1000 values and check for uniqueness
-  for i in 0..<1000 {
+  for _ in 0..<1000 {
     val := fastrand.gen_u64(&r)
     testing.expect(t, val not_in seen, "Should generate unique values")
     seen[val] = true
@@ -75,7 +74,7 @@ test_deterministic :: proc(t: ^testing.T) {
   state2 := fastrand.Random_State{s = 12345}
   gen2 := fastrand.random_generator(&state2)
 
-  for i in 0..<100 {
+  for _ in 0..<100 {
     val1 := rand.uint64(gen1)
     val2 := rand.uint64(gen2)
     testing.expect(t, val1 == val2, "Same seed should produce same sequence")
@@ -92,7 +91,7 @@ test_uniform_distribution :: proc(t: ^testing.T) {
   defer delete(counts)
 
   iterations := 100000
-  for i in 0..<iterations {
+  for _ in 0..<iterations {
     val := rand.int_max(buckets, gen)
     counts[val] += 1
   }
@@ -157,7 +156,7 @@ test_choice :: proc(t: ^testing.T) {
   defer delete(counts)
 
   iterations := 10000
-  for i in 0..<iterations {
+  for _ in 0..<iterations {
     val := rand.choice(arr, gen)
     counts[val] += 1
   }
@@ -186,7 +185,7 @@ test_reset :: proc(t: ^testing.T) {
   gen2 := fastrand.random_generator(&state2)
 
   // Generate some values to change internal state
-  for i in 0..<10 {
+  for _ in 0..<10 {
     _ = rand.uint64(gen1)
     _ = rand.uint64(gen2)
   }
@@ -212,7 +211,7 @@ test_reset :: proc(t: ^testing.T) {
   rand.reset(seed2, gen2)
 
   different_found := false
-  for i in 0..<10 {
+  for _ in 0..<10 {
     val1 := rand.uint64(gen1)
     val2 := rand.uint64(gen2)
     if val1 != val2 {
@@ -229,7 +228,7 @@ test_reset :: proc(t: ^testing.T) {
   // Generate some values
   vals_before := make([dynamic]u64)
   defer delete(vals_before)
-  for i in 0..<5 {
+  for _ in 0..<5 {
     append(&vals_before, rand.uint64(gen3))
   }
 
@@ -237,7 +236,7 @@ test_reset :: proc(t: ^testing.T) {
   rand.reset(999, gen3)
   vals_after := make([dynamic]u64)
   defer delete(vals_after)
-  for i in 0..<5 {
+  for _ in 0..<5 {
     append(&vals_after, rand.uint64(gen3))
   }
 
@@ -253,7 +252,7 @@ test_reset :: proc(t: ^testing.T) {
   state6 := fastrand.Random_State{s = 888}
 
   // Change their states
-  for i in 0..<5 {
+  for _ in 0..<5 {
     _ = fastrand.gen_u64(&state5)
     _ = fastrand.gen_u64(&state6)
   }
